@@ -1,0 +1,88 @@
+.timeline {
+    position: relative;
+    max-width: 100%;
+    margin: 50px auto;
+    &::before{
+        content: '';
+        height: 100%;
+        width: 5px;
+        background-color: $secondary-color;
+        @include center-element() 
+    }
+
+    &-item {
+        position: relative;
+        padding: 20px;
+        width: 50%;
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: $secondary-color;;
+            border: 4px solid $primary-color;
+            top: 40px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        p{
+            @include typography(1.1rem, 1.2,500,$primary-color )
+        }
+        &:nth-child(odd){
+            left: 0;
+            &::before {
+                content: "";
+                height: 0;
+                position: absolute;
+                top: 43px;
+                width: 0;
+                z-index: 1;
+                right: 10px;
+                border: medium solid $primary-color;
+                border-width: 10px 0 10px 10px;
+                border-color: transparent transparent transparent $primary-color;
+            }
+        }
+        &:nth-child(even){
+            left: 50%;
+            
+            &::before {
+                content: " ";
+                height: 0;
+                position: absolute;
+                top: 43px;
+                width: 0;
+                z-index: 1;
+                left: 10px;
+                border: medium solid $primary-color;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent $primary-color transparent transparent ;
+            }
+            &::after {
+            left: -13px;
+            }
+        }
+
+        
+    }
+
+    &-content {
+        margin-bottom: 10px;
+        background-color:$accent-color;
+        // margin-bottom: 30px;/
+        border-radius: 8px;
+        border: 1px solid $primary-color;
+        padding: 40px 20px;
+    }
+
+    &-date {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+}

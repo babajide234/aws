@@ -1,0 +1,179 @@
+// Utility Classes
+
+// Margin and Padding Helpers
+.m-0 { margin: 0; }
+.mt-0 { margin-top: 0; }
+.mr-0 { margin-right: 0; }
+.mb-0 { margin-bottom: 0; }
+.ml-0 { margin-left: 0; }
+
+.p-0 { padding: 0; }
+.pt-0 { padding-top: 0; }
+.pr-0 { padding-right: 0; }
+.pb-0 { padding-bottom: 0; }
+.pl-0 { padding-left: 0; }
+
+// Text Alignment
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+// Display and Visibility
+.d-none { display: none; }
+.d-inline { display: inline; }
+.d-block { display: block; }
+
+.visibility-hidden { visibility: hidden; }
+.visibility-visible { visibility: visible; }
+
+// Flexbox Helpers
+.d-flex { display: flex; }
+.align-items-center { align-items: center; }
+.justify-content-center { justify-content: center; }
+
+// Border Radius
+.rounded { border-radius: 4px; }
+.rounded-lg { border-radius: 8px; }
+.rounded-circle { border-radius: 50%; }
+
+// Box Shadows
+.shadow { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+.shadow-lg { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); }
+
+// Z-index
+.z-index-1 { z-index: 1; }
+.z-index-2 { z-index: 2; }
+.z-index-3 { z-index: 3; }
+
+// Mixins
+
+// Clearfix
+@mixin clearfix() {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// Center Element
+@mixin center-element() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+// Center Element
+@mixin center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+// Additional Utility Classes
+
+// Text Styles
+.text-uppercase { text-transform: uppercase; }
+.text-lowercase { text-transform: lowercase; }
+.text-capitalize { text-transform: capitalize; }
+.text-italic { font-style: italic; }
+.text-bold { font-weight: bold; }
+
+// Text Colors
+.text-primary { color: $primary-color; }
+.text-secondary { color: $secondary-color; }
+.text-accent { color: $accent-color; }
+.text-bg { color: $body-color; }
+.text-success { color: $success-color; }
+.text-info { color: $info-color; }
+.text-warning { color: $warning-color; }
+.text-danger { color: $danger-color; }
+
+// Text Size
+.text-xs { font-size: 12px; }
+.text-sm { font-size: 14px; }
+.text-lg { font-size: 18px; }
+.text-xl { font-size: 24px; }
+.text-2xl { font-size: 36px; }
+
+// Button Styles
+.btn-rounded { border-radius: 50px; }
+.btn-small { padding: 5px 10px; }
+.btn-large { padding: 15px 30px; }
+
+// Image Styles
+.img-fluid { max-width: 100%; height: auto; }
+
+// Visibility
+.visible { visibility: visible; }
+.invisible { visibility: hidden; }
+
+// Background Colors
+.bg-primary { background-color: $primary-color; }
+.bg-secondary { background-color: $secondary-color; }
+.bg-success { background-color: $success-color; }
+.bg-success { background-color: $success-color; }
+.bg-accent { background-color: $accent-color; }
+.bg-warning { background-color: $warning-color; }
+.bg-danger { background-color: $danger-color; }
+
+// Flexbox Alignment
+.align-items-start { align-items: flex-start; }
+.align-items-end { align-items: flex-end; }
+.align-items-center { align-items: center; }
+.align-items-baseline { align-items: baseline; }
+.align-items-stretch { align-items: stretch; }
+
+// Flexbox Justify Content
+.justify-content-start { justify-content: flex-start; }
+.justify-content-end { justify-content: flex-end; }
+.justify-content-center { justify-content: center; }
+.justify-content-between { justify-content: space-between; }
+.justify-content-around { justify-content: space-around; }
+
+// Mixins
+
+// Responsive Breakpoints
+@mixin media-query($breakpoint) {
+  @if $breakpoint == xs {
+    @media (max-width: 575px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == sm {
+    @media (min-width: 576px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == md {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == lg {
+    @media (min-width: 992px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == xl {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
+// Placeholder Image
+@mixin placeholder-image($width, $height) {
+  background-image: url('https://via.placeholder.com/#{$width}x#{$height}');
+  background-size: cover;
+}
+
+@mixin typography($font-size, $line-height, $font-weight, $color, $font-family: $heading-font) {
+  font-size: $font-size;
+  line-height: $line-height;
+  font-weight: $font-weight;
+  color: $color;
+  font-family: $font-family;
+}
+

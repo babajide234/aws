@@ -1,0 +1,277 @@
+// Resetting default browser styles
+
+// Reset box model and set border-box as default
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+// Remove list styles (bullets/numbers)
+ul, ol {
+  list-style: none;
+}
+
+// Remove default anchor styling
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Remove default button styling
+button, input, select, textarea {
+  background-color: transparent;
+  border: none;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}
+
+// Set base font size and line height
+body {
+    font-family: $body-font;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: $body-color;
+    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container{
+    width: $container-width;
+    margin: 0 auto;
+}
+
+.section{
+    &_center{
+        height: 100%;
+        min-height: 70vh;
+        @include center();
+    }
+    &_between{
+        min-height: 70vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &_full{
+      min-height:70vh;
+      padding-block:4rem;
+      h2{
+        font-size:4rem;
+        padding-block:3rem;
+      }
+    }
+    &_card{
+      display:flex;
+      width: 100%;
+      margin-bottom:2rem;
+      border-radius:2rem;
+      overflow:hidden;
+      &-item{
+        padding: 2rem 5rem;
+        display:flex;
+        flex-direction:column;
+
+        h3{
+          font-size:2rem;
+        }
+        p{
+          font-size:1rem;
+          margin-bottom:1.8rem;
+          color:$secondary-color;
+        }
+        a{
+          width:7rem;
+        }
+        width: 60%;
+        &:first-of-type{
+          justify-content:center;
+          align-items:center;
+          width: 60%
+        }
+
+      }
+    }
+}
+
+.footer{
+    width: 100%;
+    padding: 1rem 20rem;
+    text-align: center;
+    color: $primary-color;
+    font-weight: 500;
+  margin-top: auto;
+    background-color: $secondary-color;
+}
+
+
+.modules{
+  &_content{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+.module{
+  &_container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-block: 3rem;
+    gap: 2rem;
+  }
+  &_card{
+    padding: 10px 15px;
+    color: $body-color;
+    border: 1px solid $primary-color;
+    &-head{
+      background-color: $primary-color;
+      padding: 4rem 2rem;
+      text-align: center;
+      h4{
+        font-size: 2rem;
+      }
+    }
+    &-body{
+      padding: 2rem 2rem;
+      text-align: left;
+      p{
+        font-size: 1rem;
+        color: $primary-color;
+      }
+    }
+    &-footer{
+      // padding: 4rem 2rem;
+      a{
+        width:100%;
+        display: block;
+        border-radius: 5px;
+        text-align: center;
+        background-color: $primary-color;
+        padding: 10px 2rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        transition: all .3s ease-in-out;
+        &:hover{
+          cursor: pointer;
+          background-color: $secondary-color;
+        }
+      }
+    }
+  }
+
+}
+
+.auth{
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  &_left{
+    width: 100%;
+    background-color: $secondary-color;
+  }
+  &_right{
+    width: 100%;
+    height: 100vh;
+
+    @include center();
+  }
+  &_form{
+    width: 70%;
+  }
+}
+
+.dashbar{
+  padding:20px 20px;
+  border-bottom: 1px solid $primary-color;
+  margin-bottom: 20px;
+  &_menu{
+    display: flex;
+    align-items: center;
+    &_item{}
+    &_link{
+      padding: 20px 10px;
+      transition: all .2s ease-in-out;
+      font-weight: 700;
+
+      &:hover{
+        border-bottom: 5px solid $primary-color;
+      }
+    }
+  }
+}
+
+.dashboard{
+  &_content{
+    min-height: 100vh;
+  }
+  &_grid{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2rem;
+  }
+  &_header{
+    padding-block: 20px;
+  }
+
+  &_card{
+    padding: 30px;
+    border: 1px solid $primary-color;
+    border-radius: 10px;
+    h2{
+      margin-bottom: 10px;
+    }
+    p{
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+}
+
+.quiz{
+  &-form{}
+  &-container{}
+}
+
+.learning{
+  &_container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &_module{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+  &_left{
+    width: 50%;
+  }
+  &_right{
+    width: 50%;
+  }
+  &_btn{
+    display: flex;
+    justify-content: space-between;
+    padding-block: 3rem;
+    width: 100%;
+    button{
+      width: 10rem;
+      text-transform: capitalize;
+      padding: 10px 20px ;
+      background-color: $secondary-color;
+      border-radius: 5px;
+      font-weight: 700;
+
+    }
+  }
+
+}

@@ -1,0 +1,34 @@
+// Define colors #FAF1E4
+// #CEDEBD
+// #9EB384
+// #435334
+$primary-color: #435334;         // Blue
+$secondary-color: #9EB384;       // Red
+$accent-color: #CEDEBD;       // Red
+$body-color: #FAF1E4;       // Red
+$text-color: #333;               // Dark Gray
+$link-color: $primary-color;     // Same as primary color
+
+// Define additional colors from the palette
+$success-color: #27ae60;         // Green
+$info-color: #2980b9;            // Dark Blue
+$warning-color: #f39c12;         // Yellow
+$danger-color: #c0392b;          // Dark Red
+$background-color: #ecf0f1;      // Light Gray
+
+
+// Define fonts
+$body-font: 'Arial', sans-serif;
+$heading-font: 'Helvetica', sans-serif;
+
+// Define spacing
+$spacing-small: 8px;
+$spacing-medium: 16px;
+$spacing-large: 24px;
+
+// Define breakpoints
+$mobile-width: 768px;
+$tablet-width: 992px;
+$desktop-width: 1200px;
+
+$container-width: 80%;

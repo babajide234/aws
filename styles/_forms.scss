@@ -1,0 +1,19 @@
+.form{
+    &_control{
+        width: 100%;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: 1px solid $primary-color;
+        background: #fff;
+    }
+    &_container{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        label{
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+    }
+}
