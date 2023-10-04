@@ -172,30 +172,7 @@ function getModuleDetails($module_id)
     }
 }
 
-// function getModuleSteps($module_id)
-// {
-//     global $conn;
 
-//     $module_id = mysqli_real_escape_string($conn, $module_id);
-
-//     $sql = "SELECT s.*, si.image_data 
-//             FROM steps s 
-//             LEFT JOIN step_images si ON s.step_id = si.step_id 
-//             WHERE s.module_id = $module_id 
-//             ORDER BY s.step_number";
-
-//     $result = $conn->query($sql);
-
-//     $steps = [];
-
-//     if ($result->num_rows > 0) {
-//         while ($row = $result->fetch_assoc()) {
-//             $steps[] = $row;
-//         }
-//     }
-
-//     return $steps;
-// }
 
 function getQuizQuestions()
 {
@@ -220,7 +197,7 @@ function getModuleSteps($module_id)
     global $conn; // Assuming you have a MySQL connection established
 
     // Use prepared statements to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM module_steps WHERE module_id = ?");
+    $stmt = $conn->prepare("SELECT * FROM steps WHERE module_id = ?");
     $stmt->bind_param("i", $module_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -236,11 +213,20 @@ function getModuleSteps($module_id)
     return $steps;
 }
 
-
+function logoutUser()
+{
+    session_unset();
+    session_destroy();
+}
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
 
+        case 'logout':
+            if (isset($_POST['logout'])) {
+                logoutUser();
+            }
+            break;
         case 'login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
                 $email = $_POST['email'];
@@ -273,6 +259,13 @@ if (isset($_GET['action'])) {
             if ($_GET['action'] === 'getComponents') {
                 $componets = getComponents();
                 echo json_encode(['steps' => $componets]);
+            }
+
+            break;
+        case 'getQuestion':
+            if ($_GET['action'] === 'getComponents') {
+                $componets = getQuizQuestions();
+                echo json_encode(['questions' => $componets]);
             }
 
             break;

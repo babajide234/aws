@@ -1,4 +1,4 @@
-<?php include '../templates/header.php'; ?>
+<?php include 'templates/header.php'; ?>
 
 <div class="auth">
     <div class="auth_left"></div>
@@ -27,10 +27,10 @@
                     <input class="form_control" type="password" id="confirm_password" name="confirm_password" required>
                 </div>
                 <button type="submit" class="navbar_menu-btn navbar_menu-btn-default">Submit</button>
-                <p class=""> Already Registered ?. <a href="index.php?page=login" class=" text-success text-bold">Login</a></p>
+                <p class=""> Already Registered ?. <a href="login.php" class=" text-success text-bold">Login</a></p>
             </form>
         </div>
     </div>
 </div>
 
-<?php include '../templates/footer.php'; ?>
+<?php include 'templates/footer.php'; ?>

@@ -11,10 +11,11 @@ include('includes/db.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="https://cdn.tiny.cloud/1/50wdqgqz88fpl68n52tmf8ilkr5udtv1jwcbcymq1f2xe9bo/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 
 <body>
-    <?php if ($_SERVER['REQUEST_URI'] !== "/aws/register.php") : ?>
+    <?php if ($_SERVER['REQUEST_URI'] !== "/aws/register.php" && $_SERVER['REQUEST_URI'] !== "/aws/login.php") : ?>
 
         <nav class="navbar">
             <div class="container">

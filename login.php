@@ -1,9 +1,13 @@
 <?php
-include '../templates/header.php';
-// if (isset($_SESSION['email'])) {
-//     header("Location: index.php?page=dashboard"); // Redirect to login if not logged in
-//     exit();
-// }
+include 'templates/header.php';
+if (isset($_SESSION['email']) && $_SESSION['user_role'] == 'admin') {
+    header("Location: dashboard.php");
+    exit();
+}
+if (isset($_SESSION['email']) && $_SESSION['user_role'] == 'user') {
+    header("Location: index.php");
+    exit();
+}
 ?>
 
 <div class="auth">
@@ -21,11 +25,11 @@ include '../templates/header.php';
                     <input class="form_control" type="password" name="password" id="password" required>
                 </div>
                 <button type="submit" class="navbar_menu-btn navbar_menu-btn-default">Submit</button>
-                <a href="index.php?page=home" class="navbar_menu-btn navbar_menu-btn-outline">Back to Home</a>
-                <p class=""> If not Registered ?. <a href="index.php?page=register" class=" text-success text-bold">Register</a></p>
+                <a href="index.php" class="navbar_menu-btn navbar_menu-btn-outline">Back to Home</a>
+                <p class=""> If not Registered ?. <a href="register.php" class=" text-success text-bold">Register</a></p>
             </form>
         </div>
     </div>
 </div>
 
-<?php include '../templates/footer.php'; ?>
+<?php include 'templates/footer.php'; ?>

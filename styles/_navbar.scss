@@ -36,6 +36,10 @@
       // &:last-of-type{
       //   margin-right:0px;
       // }
+      &:hover{
+        transform:scale(1.05);
+        cursor:pointer;
+      }
       &-default{
         background:$secondary-color;
         color:$body-color;

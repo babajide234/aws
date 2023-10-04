@@ -15,33 +15,31 @@ if (!$result) {
 $row = mysqli_fetch_assoc($result);
 $component_name = $row['name'];
 $component_description = $row['description'];
+$sub_description = $row['sub'];
 
 mysqli_free_result($result);
 ?>
 <header class="header">
     <div class="container">
         <div class="header_section">
-            <h3><?php echo $component_name; ?></h3>
-            <p><?php echo $component_description; ?></p>
+            <div class="bg-secondary header_section_sub">
+                <h3 class="text-bg"><?php echo $component_name; ?></h3>
+                <p class="text-bg "><?php echo $component_description; ?></p>
+            </div>
         </div>
     </div>
 </header>
 <section class="">
     <div class="container">
+        <div class="section_full">
+            <?= $sub_description ?>
+        </div>
+    </div>
+</section>
+<section class="">
+    <div class="container">
 
         <div class="module_container">
-            <!-- <div class="module_card">
-                <div class="module_card-head">
-                    <h4>module name</h4>
-                </div>
-                <div class="module_card-body">
-                    <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis quibusdam repellendus, inventore dignissimos illum quisquam dolorem vitae aperiam quam cum facilis vel sapiente quaerat fugiat possimus ea similique earum ullam.</p>
-                </div>
-                <div class="module_card-footer">
-                    <a href="module.php?module_id=2" class="">Learn Module</a>
-                </div>
-            </div> -->
-
             <?php
             $query = "SELECT * FROM modules WHERE component_id = $component_id";
             $result = mysqli_query($conn, $query);
@@ -73,6 +71,17 @@ mysqli_free_result($result);
 
             mysqli_free_result($result);
             ?>
+            <div class="module_card">
+                <div class="module_card-head">
+                    <h4>Quiz</h4>
+                </div>
+                <div class="module_card-body">
+                    <p class=""></p>
+                </div>
+                <div class="module_card-footer">
+                    <a href="quiz.php" class="">Take a Quiz</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

@@ -1,6 +1,8 @@
 .header{
-    background-color: $accent-color;
-
+    // background-color: $accent-color;
+    background: linear-gradient(to top, rgba($primary-color , .9), rgba($secondary-color , .5)) , url('../assets/h_bg.jpeg');
+    background-position: center;
+    background-size: cover;
     &-hero{
         height: 100vh;
         display: flex;
@@ -18,7 +20,8 @@
         }
     }
     &_section{
-        height: 50vh;
+        min-height: 50vh;
+        padding-block:5rem;
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -32,5 +35,10 @@
             padding-block: 2rem;
             font-size: 1.5rem;
         }
+        &_sub{
+            border-radius:15px;
+            padding:3rem;
+        }
+
     }
 }

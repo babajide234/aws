@@ -2,27 +2,32 @@
 <header class="header">
     <div class="container">
         <div class="header-hero">
-            <h1>Welcome to WhatsApp Security Awareness</h1>
-            <p>WhatsApp Security Awareness is a website that aims to educate and empower WhatsApp users to protect themselves against social engineering attacks.</p>
+            <h1 class="text-bg ">Welcome to the WhatsApp Security Awareness Framework</h1>
+            <p class="text-bg text-xl">Enabling You to Protect Your Digital World</p>
             <div class=" ">
-                <button class="btn btn-primary btn-">Learn More</button>
-                <button class="btn btn-primary btn-outline">Register</button>
+                <a href="#about" class="btn btn-primary btn-">Learn More</a>
+                <a href="register.php" class="btn btn-primary btn-outline">Register</a>
             </div>
         </div>
     </div>
 </header>
-<section class="section" id="">
+<section class="section" id="about">
     <div class="container">
         <div class="text-center section_full ">
             <div class="">
-                <h2 class="text-secondary text-2xl">About WhatsApp</h2>
+                <h2 class="text-secondary text-2xl">About!</h2>
             </div>
             <div class="">
-                <p class=" text-xl ">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam libero distinctio, ducimus facere minima saepe debitis asperiores dolores! Eos, numquam. Nam odio ex rerum tempora nisi architecto excepturi officia quod.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste id libero eaque itaque expedita vero beatae. Quos voluptate, repellendus quae rerum, in corporis quisquam vero doloremque voluptatum aspernatur aliquid ratione.
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus accusantium iste iusto culpa dignissimos cupiditate tempora, corporis, aspernatur quibusdam optio eveniet ut, odit obcaecati nemo explicabo? Ullam accusantium animi id.
-                </p>
+                <div class="">
+                    <p class=" text-xl text-justify ">
+                        In an age where connectivity and communication flourish online, protecting your digital presence has never been more vital. Welcome to the WhatsApp Security Awareness Framework, an initiative designed to enable users with the knowledge and skills needed to protect themselves against evolving cybersecurity threats, particularly social engineering attacks.
+                    </p>
+                    <p class=" text-xl " style=" margin-block:2rem;">Our framework is a comprehensive resource that provides you with three key components of defence.</p>
+                </div>
+                <div class="">
+                    <img src="assets/frm.png" alt="" class="">
+                </div>
+
             </div>
         </div>
     </div>
@@ -34,20 +39,20 @@
     <div class="container">
         <div class="section_full ">
             <div class="">
-                <h2 class="text-secondary text-2xl">components </h2>
+                <h2 class="text-secondary text-2xl">Framework Components </h2>
             </div>
+            <div class="section_grid">
+                <?php
+                $result = mysqli_query($conn, "SELECT * FROM components");
 
-            <?php
-            $result = mysqli_query($conn, "SELECT * FROM components");
-
-            // Check if there are any components
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $id = $row["id"];
-                    $name = $row["name"];
-                    $description = $row["description"];
-                    // Output the HTML structure with dynamic component data
-                    echo '
+                // Check if there are any components
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $id = $row["id"];
+                        $name = $row["name"];
+                        $description = $row["description"];
+                        // Output the HTML structure with dynamic component data
+                        echo '
 
             <div class="section_card">
                 <div class=" section_card-item  bg-secondary">
@@ -55,19 +60,28 @@
                 </div>
                 <div class=" section_card-item bg-primary">
                     <p class="">' . $description . '</p>
-                    <a href="components.php?components_id=' . $id . '" class="navbar_menu-btn navbar_menu-btn-default">Go too </a>
+                    <a href="components.php?components_id=' . $id . '" class="navbar_menu-btn navbar_menu-btn-default">More Details </a>
                 </div>
             </div>';
+                    }
+                } else {
+                    echo "No components found.";
                 }
-            } else {
-                echo "No components found.";
-            }
 
-            // Close the MySQL connection
-            mysqli_close($conn);
-            ?>
+                // Close the MySQL connection
+                mysqli_close($conn);
+                ?>
+            </div>
+
         </div>
-
+        <div class="section_full">
+            <p class=" text-xl text-justify " style=" margin-block:2rem;">
+                By engaging with our framework, you will acquire the tools and insights necessary to navigate the digital landscape with confidence. Remember, cybersecurity is a shared responsibility, and together, we can create a safer WhatsApp community.
+            </p>
+            <p class=" text-xl text-center " style=" margin-block:1rem;">
+                Stay informed, stay vigilant, and stay secure.
+            </p>
+        </div>
     </div>
 </section>
 <?php include_once 'templates/footer.php' ?>

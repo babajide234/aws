@@ -1,13 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
-  const page = urlParams.get("page");
+  // const page = urlParams.get("page");
+  let currentURI = window.location.pathname.split("/").pop();
+  currentURI = currentURI.replace(".php", "");
+  console.log(currentURI);
 
   const tutorialDiv = document.getElementById("tutorial");
-
-  let currentStep = 0;
-  let stepsData = [];
-  let currentQuestion = 0;
+  const logout = document.getElementById("logout");
   const questionsContainer = document.getElementById("questions-container");
+  var currentQuestion = 0;
+  var questions = document.querySelectorAll(".question");
+  // const textarea = document.getQuerySelector("textarea");
+  tinymce.init({
+    selector: "textarea",
+    plugins:
+      "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount",
+    toolbar:
+      "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
+  });
 
   function loginUser(loginForm) {
     const email = document.getElementById("email").value;
@@ -81,76 +91,168 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.error("Error:", error));
   }
 
-  function fetchComponents() {
-    fetch("./includes/functions.php?action=getComponents")
+  function getQuestion(index) {
+    const questionsContainer = document.getElementById("questionsContainer");
+
+    fetch("./includes/functions.php?action=getQuestion", {
+      method: "POST",
+      body: JSON.stringify({ index: index }),
+    })
       .then((response) => response.json())
       .then((data) => {
-        data.forEach((component) => {
-          const componentDiv = document.createElement("div");
-          componentDiv.className = "component";
-          componentDiv.innerHTML = `
-          <h2>${component.name}</h2>
-          <p>${component.description}</p>
-        `;
-          document.getElementById("componentList").appendChild(componentDiv);
-        });
+        if (data.success) {
+          questionsContainer.innerHTML = `
+                <div class="question">
+                    <h2>Question ${index + 1}:</h2>
+                    <p>${data.question.question_text}</p>
+                    <label>
+                        <input type="radio" name="q${index + 1}" value="a"> ${
+            data.question.option_a
+          }
+                    </label>
+                    <label>
+                        <input type="radio" name="q${index + 1}" value="b"> ${
+            data.question.option_b
+          }
+                    </label>
+                    <label>
+                        <input type="radio" name="q${index + 1}" value="c"> ${
+            data.question.option_c
+          }
+                    </label>
+                </div>
+            `;
+        } else {
+          alert(data.message);
+        }
       })
       .catch((error) => console.error("Error:", error));
   }
-  function fetchModuleSteps(moduleId) {
-    fetch(
-      `./includes/functions.php?action=getModuleSteps&module_id=${moduleId}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const steps = data.steps;
-        const stepsContainer = document.getElementById("moduleSteps");
 
-        stepsContainer.innerHTML = ""; // Clear previous steps
+  function nextQuestion() {
+    currentQuestion++;
+    getQuestion(currentQuestion);
+    document.getElementById("prevButton").disabled = false;
+  }
 
-        steps.forEach((step) => {
-          const stepDiv = document.createElement("div");
-          stepDiv.className = "module-step";
-          stepDiv.innerHTML = `
-          <h3>Step ${step.step_number}</h3>
-          <p>${step.step_description}</p>
-          <img src="${step.image_url}" alt="Step Image">
-        `;
-          stepsContainer.appendChild(stepDiv);
+  function prevQuestion() {
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      getQuestion(currentQuestion);
+      if (currentQuestion === 0) {
+        document.getElementById("prevButton").disabled = true;
+      }
+    }
+  }
+
+  // Initial call to load the first question
+
+  switch (currentURI) {
+    case "login":
+      const loginForm = document.getElementById("loginForm");
+      if (loginForm) {
+        loginForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          loginUser(loginForm);
         });
-      })
-      .catch((error) => console.error("Error:", error));
+      }
+
+      break;
+    case "register":
+      const registerForm = document.getElementById("registerForm");
+
+      registerForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        registerUser(registerForm);
+      });
+
+      break;
+    case "module":
+      const urlParams = new URLSearchParams(window.location.search);
+      const module_id = urlParams.get("module_id");
+
+      let currentStep = 0;
+      let stepsData = [];
+
+      document.getElementById("next-btn").addEventListener("click", nextStep);
+      document.getElementById("prev-btn").addEventListener("click", prevStep);
+
+      function showCurrentStep(stepIndex) {
+        const steps = document.querySelectorAll(".learning_module");
+
+        steps.forEach((step, index) => {
+          if (index === stepIndex) {
+            step.style.display = "flex";
+          } else {
+            step.style.display = "none";
+          }
+        });
+      }
+
+      function finishModule() {
+        window.location.href = `index.php`;
+      }
+
+      function nextStep() {
+        if (currentStep < stepsData.length - 1) {
+          currentStep++;
+          showCurrentStep(currentStep);
+        } else {
+          document.getElementById("next-btn").textContent = "Finish";
+          document
+            .getElementById("next-btn")
+            .addEventListener("click", finishModule);
+        }
+      }
+
+      function prevStep() {
+        if (currentStep > 0) {
+          currentStep--;
+          showCurrentStep(currentStep);
+        }
+      }
+
+      function fetchModuleSteps(moduleId) {
+        fetch(
+          `./includes/functions.php?action=getModuleSteps&module_id=${moduleId}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const steps = data.steps;
+            const stepsContainer = document.getElementById("moduleSteps");
+
+            stepsContainer.innerHTML = "";
+
+            steps.forEach((step) => {
+              const stepDiv = document.createElement("div");
+              stepDiv.className = "learning_module";
+              stepDiv.innerHTML = `
+                <div class="learning_left">
+                    <img src="${step.image_path}" class="learning_img" alt="Step Image" title="Source: ">
+                </div>
+                <div class="learning_right">
+                    <h2 class="">${step.step_number} : ${step.step_title}</h2>
+                    ${step.step_description}
+                </div>
+              `;
+              stepsContainer.appendChild(stepDiv);
+            });
+
+            stepsData = steps;
+            showCurrentStep(currentStep);
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      fetchModuleSteps(module_id);
+
+      break;
+    case "quiz":
+      getQuestion(currentQuestion);
+
+      break;
+
+    default:
+      break;
   }
-
-  const moduleData = [];
-
-  let currentModuleIndex = 0;
-
-  function displayModule(moduleIndex) {
-    const module = moduleData[moduleIndex];
-    document.getElementById("moduleImage").src = module.image_url;
-    document.getElementById("moduleName").textContent = module.name;
-    document.getElementById("moduleDescription").textContent =
-      module.description;
-
-    // Fetch and display steps for the current module
-    fetchModuleSteps(module.id);
-  }
-
-  document.getElementById("prevButton").addEventListener("click", function () {
-    if (currentModuleIndex > 0) {
-      currentModuleIndex--;
-      displayModule(currentModuleIndex);
-    }
-  });
-
-  document.getElementById("nextButton").addEventListener("click", function () {
-    if (currentModuleIndex < moduleData.length - 1) {
-      currentModuleIndex++;
-      displayModule(currentModuleIndex);
-    }
-  });
-
-  // Display the initial module
-  displayModule(currentModuleIndex);
 });
